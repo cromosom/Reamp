@@ -5,9 +5,10 @@ import { Provider } from 'react-redux';
 import store from './store.js';
 import axios from 'axios';
 
-import WidgetList from './components/WidgetList.js';
+import TrackList from './components/TrackList.js';
+import Player from './components/Player.js';
 
-require('./styles/all.scss');
+require('./styles/styles.scss');
 
 const dummyData = [
   {
@@ -22,7 +23,10 @@ const dummyData = [
 
 render (
   <Provider store={store}>
-    <WidgetList data={dummyData} />
+    <div className="main">
+      <TrackList data={dummyData} />
+      <Player />
+    </div>
   </Provider>,
   document.getElementById('app')
 )

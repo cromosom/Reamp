@@ -1,4 +1,4 @@
-# React Theme for the Wandering App
+# React Theme for Max Gaudium
 
 ## Install
 `npm i`

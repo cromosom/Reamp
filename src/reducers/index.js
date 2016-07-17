@@ -24,6 +24,17 @@ export default (state=initialState, action) => {
       }
       break;
     }
+    case 'SELECT_TRACK' : {
+      return {
+        ...state,
+        trackId: action.id
+      }
+      break;
+    }
+    case 'INC_TRACK' : {
+      return {...state, trackId: action.id}
+      break;
+    }
   }
   return state;
 }

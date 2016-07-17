@@ -1,7 +1,7 @@
 {
-  "name": "wandering-theme",
+  "name": "gaudium",
   "version": "1.0.0",
-  "description": "Wandering Prototype",
+  "description": "Max Gaudium Homepage",
   "author": "Tim Woldt",
   "license": "ISC",
   "main": "app.js",
