@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import Widget from './Track.js';
+import Track from './Track.js';
 import { connect } from 'react-redux';
-import { fetchData } from '../actions/actions.js';
+import { fetchData, createAudioContexts } from '../actions/actions.js';
 
 @connect((store) => {
   return {
@@ -11,12 +11,24 @@ import { fetchData } from '../actions/actions.js';
 
 export default class TrackList extends Component {
 
-  // componentWillMount () {
-  //   getData()
-  // }
-
   fetchData () {
+    // const data = this.props.data;
+    // let audioContexts = [];
+
     fetchData();
+
+    // data.map(function (item) {
+    //   let audioItem = document.getElementById('track-' + item.id);
+    //   console.log(audioItem);
+    //   // let audioContext = new AudioContext();
+    //   // let audioSrc = audioContext.createMediaElementSource(audioItem);
+    //
+    //   // audioContexts.push(audioSrc)
+    // });
+    //
+    // createAudioContexts(audioContexts);
+
+
   }
 
   render () {
@@ -26,10 +38,10 @@ export default class TrackList extends Component {
     return (
       <div className="list-wrap">
         <ul className="playlist">
-          {data.map( (item, index) => <Widget key={index} trackId={index} data={item}></Widget> )}
+          {data.map( (item, index) => <Track key={index} trackId={index} data={item}></Track> )}
         </ul>
         <div className="wn-widgetlist__actions">
-          <button className="wn-btn" onClick={this.fetchData.bind(this)}>Get Data</button>
+          <button className="wn-btn" onClick={() => this.fetchData() }>Get Data</button>
         </div>
       </div>
     )

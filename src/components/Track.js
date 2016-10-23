@@ -1,12 +1,43 @@
 import React, { Component, PropTypes } from 'react';
-import { selectTrack } from '../actions/actions.js';
+import { connect } from 'react-redux';
+import { selectTrack, createAudioContexts } from '../actions/actions.js';
+
+@connect((store) => {
+  return {
+    audioNode: store.contexts
+  }
+})
 
 export default class Track extends Component {
 
   select() {
-    var trackId = this.props.trackId;
+    let trackId = this.props.trackId;
+    let audioNode = this.props.audioNode[trackId]
 
     selectTrack(trackId);
+
+    audioNode.src.connect(audioNode.context.destination);
+
+    let analyser = audioNode.context.createAnalyser();
+    audioNode.src.connect(analyser);
+
+  }
+
+  componentDidMount () {
+
+    const { trackId } = this.props;
+
+    let audioItem = document.getElementById('track-' + trackId);
+    let audioContext = new AudioContext();
+    let audioSrc = audioContext.createMediaElementSource(audioItem);
+
+    let audioNode = {
+      context : audioContext,
+      src : audioSrc
+    }
+
+    createAudioContexts(audioNode);
+    
   }
 
   render () {
@@ -14,7 +45,7 @@ export default class Track extends Component {
     const {name} = this.props.data
 
     return (
-      <li onClick={this.select.bind(this)}>
+      <li onClick={ () => this.select() }>
         {name}
         <audio id={'track-' + this.props.trackId} controls>
           <source type="audio/mpeg" src={'assets/add/audio/' + name}></source>

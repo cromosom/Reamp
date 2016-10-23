@@ -2,7 +2,9 @@ const initialState = {
   fetching: false,
   fetched: false,
   data: [],
-  error: null
+  error: null,
+  contexts: [],
+  trackId: 0
 }
 
 export default (state=initialState, action) => {
@@ -21,6 +23,16 @@ export default (state=initialState, action) => {
         fetching: false,
         fetched: true,
         data: action.data
+      }
+      break;
+    }
+    case 'CREATE_AUDIOCONTEXTS' : {
+      state.contexts.push({
+        context : action.audioNode.context,
+        src : action.audioNode.src
+      })
+      return {
+        ...state
       }
       break;
     }

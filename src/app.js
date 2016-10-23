@@ -7,25 +7,16 @@ import axios from 'axios';
 
 import TrackList from './components/TrackList.js';
 import Player from './components/Player.js';
+import VisualCanvas from './components/VisualCanvas.js';
 
 require('./styles/styles.scss');
-
-const dummyData = [
-  {
-    id : 1,
-    name : 'First Widget'
-  },
-  {
-    id: 2,
-    name : 'Second Widget'
-  }
-]
 
 render (
   <Provider store={store}>
     <div className="main">
-      <TrackList data={dummyData} />
+      <TrackList />
       <Player />
+      <VisualCanvas />
     </div>
   </Provider>,
   document.getElementById('app')

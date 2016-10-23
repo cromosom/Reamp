@@ -27,28 +27,30 @@ export default class Player extends Component {
   skipNext() {
     this.state.audioNode.pause();
     skip(this.props.track);
-    var id = this.props.track + 1;
+
+    let id = this.props.track + 1;
+    let audioNodeEl = document.getElementById('track-' + id);
+
     this.setState({
-      audioNode: document.getElementById('track-' + id)
+      audioNode: audioNodeEl
     });
 
-    let nextTrack = document.getElementById('track-' + id);
-
-    nextTrack.play();
+    audioNodeEl.play();
   }
 
   //skips to previous audio node
   skipPrev() {
     this.state.audioNode.pause();
     prev(this.props.track);
-    var id = this.props.track - 1;
+
+    let id = this.props.track - 1;
+    let audioNodeEl = document.getElementById('track-' + id);
+
     this.setState({
-      audioNode: document.getElementById('track-' + id)
+      audioNode: audioNodeEl
     });
 
-    let prevTrack = document.getElementById('track-' + id);
-
-    prevTrack.play();
+    audioNodeEl.play();
   }
 
   //changes audio volume

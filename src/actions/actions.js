@@ -5,6 +5,13 @@ export function fetchData () {
   return store.dispatch({type: 'RECIVE_DATA', data: files});
 };
 
+export function createAudioContexts (data) {
+  return store.dispatch({type: 'CREATE_AUDIOCONTEXTS', audioNode: {
+    context : data.context,
+    src : data.src
+  }});
+};
+
 export function selectTrack (trackId) {
   return store.dispatch({type: 'SELECT_TRACK', id : trackId});
 };
