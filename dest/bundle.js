@@ -23000,11 +23000,7 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	    case 'FETCH_GEODATA_START':
-	      {
-	        return _extends({}, state, { fetching: true });
-	        break;
-	      }
+	
 	    case 'FETCH_DATA_ERROR':
 	      {
 	        return _extends({}, state, { fetching: false, error: action.data });
@@ -23023,12 +23019,13 @@
 	      {
 	        state.contexts.push({
 	          context: action.audioNode.context,
-	          src: action.audioNode.src
+	          src: action.audioNode.src,
+	          item: action.audioNode.item
 	        });
 	        return _extends({}, state);
 	        break;
 	      }
-	    case 'SELECT_TRACK':
+	    case 'SET_TRACK':
 	      {
 	        return _extends({}, state, {
 	          trackId: action.id
@@ -24220,7 +24217,8 @@
 	
 	var TrackList = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    tracks: store.data
+	    tracks: store.data,
+	    audioNode: store.contexts
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(TrackList, _Component);
@@ -24234,21 +24232,21 @@
 	  _createClass(TrackList, [{
 	    key: 'fetchData',
 	    value: function fetchData() {
-	      // const data = this.props.data;
-	      // let audioContexts = [];
 	
 	      (0, _actions.fetchData)();
+	    }
+	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      var trackId = 0;
+	      var audioNode = this.props.audioNode[trackId];
 	
-	      // data.map(function (item) {
-	      //   let audioItem = document.getElementById('track-' + item.id);
-	      //   console.log(audioItem);
-	      //   // let audioContext = new AudioContext();
-	      //   // let audioSrc = audioContext.createMediaElementSource(audioItem);
-	      //
-	      //   // audioContexts.push(audioSrc)
-	      // });
-	      //
-	      // createAudioContexts(audioContexts);
+	      (0, _actions.selectTrack)(trackId);
+	
+	      audioNode.src.connect(audioNode.context.destination);
+	
+	      var analyser = audioNode.context.createAnalyser();
+	      audioNode.src.connect(analyser);
 	    }
 	  }, {
 	    key: 'render',
@@ -24354,12 +24352,14 @@
 	
 	
 	      var audioItem = document.getElementById('track-' + trackId);
+	      console.log(audioItem);
 	      var audioContext = new AudioContext();
 	      var audioSrc = audioContext.createMediaElementSource(audioItem);
 	
 	      var audioNode = {
 	        context: audioContext,
-	        src: audioSrc
+	        src: audioSrc,
+	        item: audioItem
 	      };
 	
 	      (0, _actions.createAudioContexts)(audioNode);
@@ -24409,6 +24409,7 @@
 	exports.selectTrack = selectTrack;
 	exports.skip = skip;
 	exports.prev = prev;
+	exports.setCurrTrack = setCurrTrack;
 	
 	var _store = __webpack_require__(194);
 	
@@ -24427,12 +24428,13 @@
 	function createAudioContexts(data) {
 	  return _store2.default.dispatch({ type: 'CREATE_AUDIOCONTEXTS', audioNode: {
 	      context: data.context,
-	      src: data.src
+	      src: data.src,
+	      item: data.item
 	    } });
 	};
 	
 	function selectTrack(trackId) {
-	  return _store2.default.dispatch({ type: 'SELECT_TRACK', id: trackId });
+	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
 	};
 	
 	function skip(trackId) {
@@ -24441,6 +24443,11 @@
 	
 	function prev(trackId) {
 	  return _store2.default.dispatch({ type: 'DEC_TRACK', id: trackId - 1 });
+	};
+	
+	function setCurrTrack(trackId) {
+	  console.log(trackId);
+	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
 	};
 	
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "actions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
@@ -24484,7 +24491,8 @@
 	
 	var Player = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    track: store.trackId
+	    track: store.trackId,
+	    audioNode: store.contexts
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(Player, _Component);
@@ -24503,7 +24511,9 @@
 	    value: function play() {
 	      console.log('play', this.props.track);
 	
-	      this.state.audioNode.play();
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.play();
 	    }
 	
 	    //pauses selected audio node
@@ -24511,7 +24521,9 @@
 	  }, {
 	    key: 'pause',
 	    value: function pause() {
-	      this.state.audioNode.pause();
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.pause();
 	    }
 	
 	    //skips to next audio node
@@ -24519,17 +24531,14 @@
 	  }, {
 	    key: 'skipNext',
 	    value: function skipNext() {
-	      this.state.audioNode.pause();
-	      (0, _actions.skip)(this.props.track);
+	      var id = this.props.track;
 	
-	      var id = this.props.track + 1;
-	      var audioNodeEl = document.getElementById('track-' + id);
+	      this.props.audioNode[id].item.pause();
+	      id = id++;
+	      console.log(id);
+	      (0, _actions.setCurrTrack)(id);
 	
-	      this.setState({
-	        audioNode: audioNodeEl
-	      });
-	
-	      audioNodeEl.play();
+	      this.props.audioNode[id].item.play();
 	    }
 	
 	    //skips to previous audio node
@@ -24537,17 +24546,13 @@
 	  }, {
 	    key: 'skipPrev',
 	    value: function skipPrev() {
-	      this.state.audioNode.pause();
-	      (0, _actions.prev)(this.props.track);
+	      var id = this.props.track;
 	
-	      var id = this.props.track - 1;
-	      var audioNodeEl = document.getElementById('track-' + id);
+	      this.props.audioNode[id].item.pause();
+	      (0, _actions.setCurrTrack)(id--);
+	      // console.log(id);
 	
-	      this.setState({
-	        audioNode: audioNodeEl
-	      });
-	
-	      audioNodeEl.play();
+	      this.props.audioNode[id].item.play();
 	    }
 	
 	    //changes audio volume
@@ -24555,15 +24560,18 @@
 	  }, {
 	    key: 'range',
 	    value: function range(event) {
-	      this.state.audioNode.volume = event.target.value / 100;
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.volume = event.target.value / 100;
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var trackId = this.props.track.trackId;
 	
-	      this.state = {
-	        audioNode: document.getElementById('track-' + this.props.track)
-	      };
+	      // this.state = {
+	      //   audioNode: document.getElementById('track-' + this.props.track)
+	      // }
 	
 	      return _react2.default.createElement(
 	        'div',

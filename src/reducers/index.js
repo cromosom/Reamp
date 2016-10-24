@@ -4,15 +4,12 @@ const initialState = {
   data: [],
   error: null,
   contexts: [],
-  trackId: 0
+  trackId: 0 
 }
 
 export default (state=initialState, action) => {
   switch (action.type) {
-    case 'FETCH_GEODATA_START' : {
-      return {...state, fetching: true}
-      break;
-    }
+
     case 'FETCH_DATA_ERROR' : {
       return {...state, fetching: false, error: action.data}
       break;
@@ -29,14 +26,15 @@ export default (state=initialState, action) => {
     case 'CREATE_AUDIOCONTEXTS' : {
       state.contexts.push({
         context : action.audioNode.context,
-        src : action.audioNode.src
+        src : action.audioNode.src,
+        item : action.audioNode.item
       })
       return {
         ...state
       }
       break;
     }
-    case 'SELECT_TRACK' : {
+    case 'SET_TRACK' : {
       return {
         ...state,
         trackId: action.id

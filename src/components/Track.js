@@ -28,16 +28,18 @@ export default class Track extends Component {
     const { trackId } = this.props;
 
     let audioItem = document.getElementById('track-' + trackId);
+    console.log(audioItem);
     let audioContext = new AudioContext();
     let audioSrc = audioContext.createMediaElementSource(audioItem);
 
     let audioNode = {
       context : audioContext,
-      src : audioSrc
+      src : audioSrc,
+      item : audioItem
     }
 
     createAudioContexts(audioNode);
-    
+
   }
 
   render () {

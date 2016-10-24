@@ -1,34 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import Track from './Track.js';
 import { connect } from 'react-redux';
-import { fetchData, createAudioContexts } from '../actions/actions.js';
+import { selectTrack, fetchData, createAudioContexts } from '../actions/actions.js';
 
 @connect((store) => {
   return {
-    tracks: store.data
+    tracks: store.data,
+    audioNode: store.contexts
   }
 })
 
 export default class TrackList extends Component {
 
   fetchData () {
-    // const data = this.props.data;
-    // let audioContexts = [];
 
     fetchData();
 
-    // data.map(function (item) {
-    //   let audioItem = document.getElementById('track-' + item.id);
-    //   console.log(audioItem);
-    //   // let audioContext = new AudioContext();
-    //   // let audioSrc = audioContext.createMediaElementSource(audioItem);
-    //
-    //   // audioContexts.push(audioSrc)
-    // });
-    //
-    // createAudioContexts(audioContexts);
+  }
 
+  componentDidUpdate () {
+    let trackId = 0;
+    let audioNode = this.props.audioNode[trackId];
 
+    selectTrack(trackId);
+
+    audioNode.src.connect(audioNode.context.destination);
+
+    let analyser = audioNode.context.createAnalyser();
+    audioNode.src.connect(analyser);
   }
 
   render () {

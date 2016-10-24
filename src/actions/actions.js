@@ -8,12 +8,13 @@ export function fetchData () {
 export function createAudioContexts (data) {
   return store.dispatch({type: 'CREATE_AUDIOCONTEXTS', audioNode: {
     context : data.context,
-    src : data.src
+    src : data.src,
+    item : data.item
   }});
 };
 
 export function selectTrack (trackId) {
-  return store.dispatch({type: 'SELECT_TRACK', id : trackId});
+  return store.dispatch({type: 'SET_TRACK', id : trackId});
 };
 
 export function skip (trackId) {
@@ -22,4 +23,9 @@ export function skip (trackId) {
 
 export function prev (trackId) {
   return store.dispatch({type: 'DEC_TRACK', id: trackId-1});
+};
+
+export function setCurrTrack (trackId) {
+  console.log(trackId);
+  return store.dispatch({type: 'SET_TRACK', id: trackId});
 };
