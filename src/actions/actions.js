@@ -26,6 +26,5 @@ export function prev (trackId) {
 };
 
 export function setCurrTrack (trackId) {
-  console.log(trackId);
   return store.dispatch({type: 'SET_TRACK', id: trackId});
 };

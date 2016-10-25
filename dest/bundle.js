@@ -24446,7 +24446,6 @@
 	};
 	
 	function setCurrTrack(trackId) {
-	  console.log(trackId);
 	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
 	};
 	
@@ -24532,13 +24531,21 @@
 	    key: 'skipNext',
 	    value: function skipNext() {
 	      var id = this.props.track;
+	      var nodes = this.props.audioNode;
 	
-	      this.props.audioNode[id].item.pause();
-	      id = id++;
-	      console.log(id);
-	      (0, _actions.setCurrTrack)(id);
+	      if (id + 1 <= nodes.length - 1) {
 	
-	      this.props.audioNode[id].item.play();
+	        nodes[id].item.pause();
+	
+	        id = id + 1;
+	        (0, _actions.setCurrTrack)(id);
+	
+	        nodes[id].src.connect(nodes[id].context.destination);
+	        var analyser = nodes[id].context.createAnalyser();
+	        nodes[id].src.connect(analyser);
+	
+	        nodes[id].item.play();
+	      }
 	    }
 	
 	    //skips to previous audio node
@@ -24547,12 +24554,20 @@
 	    key: 'skipPrev',
 	    value: function skipPrev() {
 	      var id = this.props.track;
+	      var nodes = this.props.audioNode;
 	
-	      this.props.audioNode[id].item.pause();
-	      (0, _actions.setCurrTrack)(id--);
-	      // console.log(id);
+	      if (id + 1 <= nodes.length && id - 1 >= 0) {
+	        nodes[id].item.pause();
 	
-	      this.props.audioNode[id].item.play();
+	        id = id - 1;
+	        (0, _actions.setCurrTrack)(id);
+	
+	        nodes[id].src.connect(nodes[id].context.destination);
+	        var analyser = nodes[id].context.createAnalyser();
+	        nodes[id].src.connect(analyser);
+	
+	        nodes[id].item.play();
+	      }
 	    }
 	
 	    //changes audio volume
@@ -24569,9 +24584,6 @@
 	    value: function render() {
 	      var trackId = this.props.track.trackId;
 	
-	      // this.state = {
-	      //   audioNode: document.getElementById('track-' + this.props.track)
-	      // }
 	
 	      return _react2.default.createElement(
 	        'div',

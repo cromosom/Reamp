@@ -31,24 +31,42 @@ export default class Player extends Component {
   //skips to next audio node
   skipNext() {
     let id = this.props.track;
+    const nodes = this.props.audioNode;
 
-    this.props.audioNode[id].item.pause();
-    id = id++;
-    console.log(id);
-    setCurrTrack(id);
+    if ( (id + 1) <= (nodes.length - 1) ) {
 
-    this.props.audioNode[id].item.play();
+      nodes[id].item.pause();
+
+      id = id + 1;
+      setCurrTrack(id);
+
+      nodes[id].src.connect(nodes[id].context.destination);
+      let analyser = nodes[id].context.createAnalyser();
+      nodes[id].src.connect(analyser);
+
+      nodes[id].item.play();
+    }
+
   }
 
   //skips to previous audio node
   skipPrev() {
     let id = this.props.track;
+    const nodes = this.props.audioNode;
 
-    this.props.audioNode[id].item.pause();
-    setCurrTrack(id--);
-    // console.log(id);
+    if ( (id + 1) <= (nodes.length) && (id - 1) >= 0 ) {
+      nodes[id].item.pause();
 
-    this.props.audioNode[id].item.play();
+      id = id - 1;
+      setCurrTrack(id);
+
+      nodes[id].src.connect(nodes[id].context.destination);
+      let analyser = nodes[id].context.createAnalyser();
+      nodes[id].src.connect(analyser);
+
+      nodes[id].item.play();
+    }
+
   }
 
   //changes audio volume
@@ -61,10 +79,6 @@ export default class Player extends Component {
   render () {
 
     const { trackId } = this.props.track;
-
-    // this.state = {
-    //   audioNode: document.getElementById('track-' + this.props.track)
-    // }
 
     return (
       <div className='player'>
