@@ -24223,16 +24223,23 @@
 	}), _dec(_class = function (_Component) {
 	  _inherits(TrackList, _Component);
 	
-	  function TrackList() {
+	  function TrackList(props) {
 	    _classCallCheck(this, TrackList);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TrackList).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TrackList).call(this, props));
+	
+	    _this.state = { activeItem: null };
+	    return _this;
 	  }
 	
 	  _createClass(TrackList, [{
+	    key: 'onItemActive',
+	    value: function onItemActive(index) {
+	      this.setState({ activeItem: index });
+	    }
+	  }, {
 	    key: 'fetchData',
 	    value: function fetchData() {
-	
 	      (0, _actions.fetchData)();
 	    }
 	  }, {
@@ -24259,6 +24266,7 @@
 	      var _this2 = this;
 	
 	      var data = this.props.tracks;
+	      var self = this;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -24267,7 +24275,7 @@
 	          'ul',
 	          { className: 'playlist' },
 	          data.map(function (item, index) {
-	            return _react2.default.createElement(_Track2.default, { key: index, trackId: index, data: item });
+	            return _react2.default.createElement(_Track2.default, { key: index, trackId: index, data: item, onItemActive: self.onItemActive.bind(self), active: index === self.state.activeItem });
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -24338,10 +24346,7 @@
 	  function Track(props) {
 	    _classCallCheck(this, Track);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Track).call(this, props));
-	
-	    _this.state = { active: false };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Track).call(this, props));
 	  }
 	
 	  _createClass(Track, [{
@@ -24357,7 +24362,7 @@
 	      var analyser = audioNode.context.createAnalyser();
 	      audioNode.src.connect(analyser);
 	
-	      this.setState({ active: !this.state.active });
+	      this.props.onItemActive(this.props.trackId);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -24366,7 +24371,6 @@
 	
 	
 	      var audioItem = document.getElementById('track-' + trackId);
-	      console.log(audioItem);
 	      var audioContext = new AudioContext();
 	      var audioSrc = audioContext.createMediaElementSource(audioItem);
 	
@@ -24388,7 +24392,7 @@
 	
 	      return _react2.default.createElement(
 	        'li',
-	        { className: this.state.active ? 'is--active' : '', onClick: function onClick() {
+	        { className: this.props.active ? 'is--active' : '', onClick: function onClick() {
 	            return _this2.select();
 	          } },
 	        name,

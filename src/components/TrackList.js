@@ -12,10 +12,17 @@ import { selectTrack, fetchData, createAudioContexts } from '../actions/actions.
 
 export default class TrackList extends Component {
 
+  constructor (props) {
+    super(props);
+    this.state = {activeItem : null};
+  }
+
+  onItemActive (index) {
+    this.setState({activeItem: index});
+  }
+
   fetchData () {
-
     fetchData();
-
   }
 
   componentDidMount () {
@@ -37,11 +44,12 @@ export default class TrackList extends Component {
   render () {
 
     const data = this.props.tracks
+    let self = this;
 
     return (
       <div className="list-wrap">
         <ul className="playlist">
-          {data.map( (item, index) => <Track key={index} trackId={index} data={item}></Track> )}
+          {data.map( (item, index) => <Track key={index} trackId={index} data={item} onItemActive={self.onItemActive.bind(self)} active={index === self.state.activeItem}></Track> )}
         </ul>
         <div className="wn-widgetlist__actions">
           <button className="btn-secondary" onClick={() => this.fetchData() }>Get Data</button>

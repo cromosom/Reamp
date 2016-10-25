@@ -13,7 +13,6 @@ export default class Track extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {active : false};
   }
 
   select() {
@@ -27,7 +26,7 @@ export default class Track extends Component {
     let analyser = audioNode.context.createAnalyser();
     audioNode.src.connect(analyser);
 
-    this.setState({active : !this.state.active});
+    this.props.onItemActive(this.props.trackId);
   }
 
   componentDidMount () {
@@ -35,7 +34,6 @@ export default class Track extends Component {
     const { trackId } = this.props;
 
     let audioItem = document.getElementById('track-' + trackId);
-    console.log(audioItem);
     let audioContext = new AudioContext();
     let audioSrc = audioContext.createMediaElementSource(audioItem);
 
@@ -54,7 +52,7 @@ export default class Track extends Component {
     const {name} = this.props.data;
 
     return (
-      <li className={this.state.active ? 'is--active' : ''} onClick={ () => this.select() }>
+      <li className={this.props.active ? 'is--active' : ''} onClick={ () => this.select() }>
         {name}
         <audio id={'track-' + this.props.trackId} controls>
           <source type="audio/mpeg" src={'assets/add/audio/' + name}></source>
