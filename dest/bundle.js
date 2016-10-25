@@ -24228,7 +24228,7 @@
 	
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TrackList).call(this, props));
 	
-	    _this.state = { activeItem: null };
+	    _this.state = { activeItem: 0 };
 	    return _this;
 	  }
 	

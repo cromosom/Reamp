@@ -14,7 +14,7 @@ export default class TrackList extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {activeItem : null};
+    this.state = {activeItem : 0};
   }
 
   onItemActive (index) {
