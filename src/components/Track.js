@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { selectTrack, createAudioContexts } from '../actions/actions.js';
+import classnames from 'classnames';
 
 @connect((store) => {
   return {
@@ -9,6 +10,11 @@ import { selectTrack, createAudioContexts } from '../actions/actions.js';
 })
 
 export default class Track extends Component {
+
+  constructor (props) {
+    super(props);
+    this.state = {active : false};
+  }
 
   select() {
     let trackId = this.props.trackId;
@@ -21,6 +27,7 @@ export default class Track extends Component {
     let analyser = audioNode.context.createAnalyser();
     audioNode.src.connect(analyser);
 
+    this.setState({active : !this.state.active});
   }
 
   componentDidMount () {
@@ -44,10 +51,10 @@ export default class Track extends Component {
 
   render () {
 
-    const {name} = this.props.data
+    const {name} = this.props.data;
 
     return (
-      <li onClick={ () => this.select() }>
+      <li className={this.state.active ? 'is--active' : ''} onClick={ () => this.select() }>
         {name}
         <audio id={'track-' + this.props.trackId} controls>
           <source type="audio/mpeg" src={'assets/add/audio/' + name}></source>

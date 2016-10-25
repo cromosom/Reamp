@@ -18,6 +18,10 @@ export default class TrackList extends Component {
 
   }
 
+  componentDidMount () {
+    this.fetchData()
+  }
+
   componentDidUpdate () {
     let trackId = 0;
     let audioNode = this.props.audioNode[trackId];
@@ -40,7 +44,7 @@ export default class TrackList extends Component {
           {data.map( (item, index) => <Track key={index} trackId={index} data={item}></Track> )}
         </ul>
         <div className="wn-widgetlist__actions">
-          <button className="wn-btn" onClick={() => this.fetchData() }>Get Data</button>
+          <button className="btn-secondary" onClick={() => this.fetchData() }>Get Data</button>
         </div>
       </div>
     )

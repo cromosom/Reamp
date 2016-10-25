@@ -1,0 +1,31 @@
+
+.list-wrap {
+  margin-bottom: 20px;
+  background-color: rgba(3, 169, 244, 0.9);
+  transform: translate3d(0, 0, 0) rotate(-3deg) skew(-3deg);
+  padding: 40px;
+  width: 350px;
+}
+
+.playlist {
+  list-style: none;
+  margin: 0 0 23px 0;
+  padding: 0;
+  color: #fff;
+
+  audio {
+    display: none;
+  }
+
+  li {
+    text-transform: lowercase;
+    font-size: 20px;
+    cursor: pointer;
+
+    &.is--active {
+      color: rgb(0, 0, 0);
+    }
+
+  }
+
+}
