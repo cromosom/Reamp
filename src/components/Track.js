@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { selectTrack, createAudioContexts } from '../actions/actions.js';
-import classnames from 'classnames';
+import { setCurrTrack, createAudioContexts } from '../actions/actions.js';
+// import visualize from '../logic/visualize.js';
 
 @connect((store) => {
   return {
@@ -16,10 +16,10 @@ export default class Track extends Component {
   }
 
   select() {
-    let trackId = this.props.trackId;
+    const { trackId } = this.props;
     let audioNode = this.props.audioNode[trackId]
 
-    selectTrack(trackId);
+    setCurrTrack(trackId);
 
     audioNode.src.connect(audioNode.context.destination);
 
@@ -27,6 +27,7 @@ export default class Track extends Component {
     audioNode.src.connect(analyser);
 
     this.props.onItemActive(this.props.trackId);
+    // visualize();
   }
 
   componentDidMount () {
@@ -52,7 +53,7 @@ export default class Track extends Component {
     const {name} = this.props.data;
 
     return (
-      <li className={this.props.active ? 'is--active' : ''} onClick={ () => this.select() }>
+      <li className={this.props.active ? 'is--active' : ''} onClick={ this.select.bind(this) }>
         {name}
         <audio id={'track-' + this.props.trackId} controls>
           <source type="audio/mpeg" src={'assets/add/audio/' + name}></source>

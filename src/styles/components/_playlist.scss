@@ -1,6 +1,6 @@
 
 .list-wrap {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   background-color: rgba(3, 169, 244, 0.9);
   transform: translate3d(0, 0, 0) rotate(-3deg) skew(-3deg);
   padding: 40px;
@@ -23,7 +23,7 @@
     cursor: pointer;
 
     &.is--active {
-      color: rgb(0, 0, 0);
+      color: #FFEB3B;
     }
 
   }

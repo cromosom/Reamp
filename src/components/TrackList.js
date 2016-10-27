@@ -25,21 +25,21 @@ export default class TrackList extends Component {
     fetchData();
   }
 
-  componentDidMount () {
-    this.fetchData()
-  }
+  // componentDidMount () {
+  //   this.fetchData()
+  // }
 
-  componentDidUpdate () {
-    let trackId = 0;
-    let audioNode = this.props.audioNode[trackId];
-
-    selectTrack(trackId);
-
-    audioNode.src.connect(audioNode.context.destination);
-
-    let analyser = audioNode.context.createAnalyser();
-    audioNode.src.connect(analyser);
-  }
+  // componentDidUpdate () {
+  //   let trackId = 0;
+  //   let audioNode = this.props.audioNode[trackId];
+  //
+  //   selectTrack(trackId);
+  //
+  //   audioNode.src.connect(audioNode.context.destination);
+  //
+  //   let analyser = audioNode.context.createAnalyser();
+  //   audioNode.src.connect(analyser);
+  // }
 
   render () {
 
@@ -52,7 +52,7 @@ export default class TrackList extends Component {
           {data.map( (item, index) => <Track key={index} trackId={index} data={item} onItemActive={self.onItemActive.bind(self)} active={index === self.state.activeItem}></Track> )}
         </ul>
         <div className="wn-widgetlist__actions">
-          <button className="btn-secondary" onClick={() => this.fetchData() }>Get Data</button>
+          <button className="btn-secondary" onClick={() => this.fetchData() }>Get Playlist</button>
         </div>
       </div>
     )
