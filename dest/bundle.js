@@ -24733,7 +24733,8 @@
 	
 	var Track = (_dec = (0, _reactRedux.connect)(function (store) {
 	  return {
-	    audioNode: store.contexts
+	    audioNode: store.contexts,
+	    currTrakckId: store.trackId
 	  };
 	}), _dec(_class = function (_Component) {
 	  _inherits(Track, _Component);
@@ -24747,9 +24748,15 @@
 	  _createClass(Track, [{
 	    key: 'select',
 	    value: function select() {
+	
+	      //pause curr track
+	      var audioNode = this.props.audioNode[this.props.currTrakckId];
+	      audioNode.item.pause();
+	
+	      //set selected track
 	      var trackId = this.props.trackId;
 	
-	      var audioNode = this.props.audioNode[trackId];
+	      audioNode = this.props.audioNode[trackId];
 	
 	      (0, _actions.setCurrTrack)(trackId);
 	
@@ -24860,12 +24867,17 @@
 	
 	
 	    //playes selected audio node
-	    value: function play() {
-	      console.log('play', this.props.track);
+	    value: function play(id) {
+	      id = typeof id == 'number' ? id : 0;
+	      console.log('play', id);
 	
-	      var id = this.props.track;
+	      var nodes = this.props.audioNode;
 	
-	      this.props.audioNode[id].item.play();
+	      nodes[id].src.connect(nodes[id].context.destination);
+	      var analyser = nodes[id].context.createAnalyser();
+	      nodes[id].src.connect(analyser);
+	
+	      nodes[id].item.play();
 	    }
 	
 	    //pauses selected audio node
@@ -24893,11 +24905,7 @@
 	        id = id + 1;
 	        (0, _actions.setCurrTrack)(id);
 	
-	        nodes[id].src.connect(nodes[id].context.destination);
-	        var analyser = nodes[id].context.createAnalyser();
-	        nodes[id].src.connect(analyser);
-	
-	        nodes[id].item.play();
+	        this.play(id);
 	        this.props.onItemActive(id);
 	      }
 	    }
@@ -24916,12 +24924,7 @@
 	        id = id - 1;
 	        (0, _actions.setCurrTrack)(id);
 	
-	        nodes[id].src.connect(nodes[id].context.destination);
-	        var analyser = nodes[id].context.createAnalyser();
-	        nodes[id].src.connect(analyser);
-	
-	        nodes[id].item.play();
-	
+	        this.play(id);
 	        this.props.onItemActive(id);
 	      }
 	    }

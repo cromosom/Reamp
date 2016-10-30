@@ -5,7 +5,8 @@ import { setCurrTrack, createAudioContexts } from '../actions/actions.js';
 
 @connect((store) => {
   return {
-    audioNode: store.contexts
+    audioNode: store.contexts,
+    currTrakckId : store.trackId
   }
 })
 
@@ -16,8 +17,14 @@ export default class Track extends Component {
   }
 
   select() {
+
+    //pause curr track
+    let audioNode = this.props.audioNode[this.props.currTrakckId];
+    audioNode.item.pause();
+
+    //set selected track
     const { trackId } = this.props;
-    let audioNode = this.props.audioNode[trackId]
+    audioNode = this.props.audioNode[trackId]
 
     setCurrTrack(trackId);
 

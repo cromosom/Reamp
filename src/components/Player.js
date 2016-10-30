@@ -13,12 +13,18 @@ import store from '../store.js';
 export default class Player extends Component {
 
   //playes selected audio node
-  play() {
-    console.log('play', this.props.track);
+  play(id) {
+    id = typeof id == 'number' ? id : 0;
+    console.log('play', id);
 
-    let id = this.props.track;
+    const nodes = this.props.audioNode;
 
-    this.props.audioNode[id].item.play();
+    nodes[id].src.connect(nodes[id].context.destination);
+    let analyser = nodes[id].context.createAnalyser();
+    nodes[id].src.connect(analyser);
+
+    nodes[id].item.play();
+
   }
 
   //pauses selected audio node
@@ -40,11 +46,7 @@ export default class Player extends Component {
       id = id + 1;
       setCurrTrack(id);
 
-      nodes[id].src.connect(nodes[id].context.destination);
-      let analyser = nodes[id].context.createAnalyser();
-      nodes[id].src.connect(analyser);
-
-      nodes[id].item.play();
+      this.play(id);
       this.props.onItemActive(id);
     }
 
@@ -61,12 +63,7 @@ export default class Player extends Component {
       id = id - 1;
       setCurrTrack(id);
 
-      nodes[id].src.connect(nodes[id].context.destination);
-      let analyser = nodes[id].context.createAnalyser();
-      nodes[id].src.connect(analyser);
-
-      nodes[id].item.play();
-
+      this.play(id);
       this.props.onItemActive(id);
     }
 
