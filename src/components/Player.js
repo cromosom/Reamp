@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { setCurrTrack, skip, prev } from '../actions/actions.js';
 import store from '../store.js';
 
+import visualize from '../logic/visualize.js';
+
 @connect((store) => {
   return {
-    track: store.trackId,
-    audioNode: store.contexts
+    trackId: store.trackId,
+    audioNodes: store.contexts
   }
 })
 
@@ -14,30 +16,30 @@ export default class Player extends Component {
 
   //playes selected audio node
   play(id) {
-    id = typeof id == 'number' ? id : 0;
+    id = typeof id == 'number' ? id : this.props.trackId;
     console.log('play', id);
 
-    const nodes = this.props.audioNode;
+    const nodes = this.props.audioNodes;
 
     nodes[id].src.connect(nodes[id].context.destination);
     let analyser = nodes[id].context.createAnalyser();
     nodes[id].src.connect(analyser);
 
     nodes[id].item.play();
-
+    visualize(this.props.trackId, this.props.audioNodes);
   }
 
   //pauses selected audio node
   pause() {
-    let id = this.props.track;
+    let id = this.props.trackId;
 
-    this.props.audioNode[id].item.pause();
+    this.props.audioNodes[id].item.pause();
   }
 
   //skips to next audio node
   skipNext() {
-    let id = this.props.track;
-    const nodes = this.props.audioNode;
+    let id = this.props.trackId;
+    const nodes = this.props.audioNodes;
 
     if ( (id + 1) <= (nodes.length - 1) ) {
 
@@ -54,8 +56,8 @@ export default class Player extends Component {
 
   //skips to previous audio node
   skipPrev() {
-    let id = this.props.track;
-    const nodes = this.props.audioNode;
+    let id = this.props.trackId;
+    const nodes = this.props.audioNodes;
 
     if ( (id + 1) <= (nodes.length) && (id - 1) >= 0 ) {
       nodes[id].item.pause();
@@ -71,14 +73,14 @@ export default class Player extends Component {
 
   //changes audio volume
   range(event) {
-    let id = this.props.track;
+    let id = this.props.trackId;
 
-    this.props.audioNode[id].item.volume = event.target.value / 100;
+    this.props.audioNodes[id].item.volume = event.target.value / 100;
   }
 
   render () {
 
-    const { trackId } = this.props.track;
+    const { trackId } = this.props.trackId;
 
     return (
       <div className='player'>

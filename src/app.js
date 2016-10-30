@@ -11,9 +11,7 @@ require('./styles/styles.scss');
 
 render (
   <Provider store={store}>
-    <div className="main">
-      <Main />
-    </div>
+    <Main />
   </Provider>,
   document.getElementById('app')
 )

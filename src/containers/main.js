@@ -22,7 +22,7 @@ export default class Main extends Component {
     let self = this;
 
     return (
-      <div>
+      <div className="main">
         <TrackList onItemActive={self.onItemActive.bind(self)} activeItem={this.state.activeItem} />
         <Player onItemActive={self.onItemActive.bind(self)} />
         <VisualCanvas />

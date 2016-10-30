@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { setCurrTrack, createAudioContexts } from '../actions/actions.js';
-// import visualize from '../logic/visualize.js';
 
 @connect((store) => {
   return {
@@ -34,7 +33,6 @@ export default class Track extends Component {
     audioNode.src.connect(analyser);
 
     this.props.onItemActive(this.props.trackId);
-    // visualize();
   }
 
   componentDidMount () {
