@@ -45,6 +45,7 @@ export default class Player extends Component {
       nodes[id].src.connect(analyser);
 
       nodes[id].item.play();
+      this.props.onItemActive(id);
     }
 
   }
@@ -65,6 +66,8 @@ export default class Player extends Component {
       nodes[id].src.connect(analyser);
 
       nodes[id].item.play();
+
+      this.props.onItemActive(id);
     }
 
   }

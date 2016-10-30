@@ -24,7 +24,7 @@ export default class Main extends Component {
     return (
       <div>
         <TrackList onItemActive={self.onItemActive.bind(self)} activeItem={this.state.activeItem} />
-        <Player />
+        <Player onItemActive={self.onItemActive.bind(self)} />
         <VisualCanvas />
       </div>
     )

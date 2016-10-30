@@ -24238,7 +24238,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_TrackList2.default, { onItemActive: self.onItemActive.bind(self), activeItem: this.state.activeItem }),
-	        _react2.default.createElement(_Player2.default, null),
+	        _react2.default.createElement(_Player2.default, { onItemActive: self.onItemActive.bind(self) }),
 	        _react2.default.createElement(_VisualCanvas2.default, null)
 	      );
 	    }
@@ -24898,6 +24898,7 @@
 	        nodes[id].src.connect(analyser);
 	
 	        nodes[id].item.play();
+	        this.props.onItemActive(id);
 	      }
 	    }
 	
@@ -24920,6 +24921,8 @@
 	        nodes[id].src.connect(analyser);
 	
 	        nodes[id].item.play();
+	
+	        this.props.onItemActive(id);
 	      }
 	    }
 	
