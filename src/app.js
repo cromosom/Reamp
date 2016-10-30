@@ -5,18 +5,14 @@ import { Provider } from 'react-redux';
 import store from './store.js';
 import axios from 'axios';
 
-import TrackList from './components/TrackList.js';
-import Player from './components/Player.js';
-import VisualCanvas from './components/VisualCanvas.js';
+import Main from './containers/main.js';
 
 require('./styles/styles.scss');
 
 render (
   <Provider store={store}>
     <div className="main">
-      <TrackList />
-      <Player />
-      <VisualCanvas />
+      <Main />
     </div>
   </Provider>,
   document.getElementById('app')

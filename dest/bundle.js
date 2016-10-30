@@ -64,21 +64,13 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
-	var _TrackList = __webpack_require__(215);
+	var _main = __webpack_require__(215);
 	
-	var _TrackList2 = _interopRequireDefault(_TrackList);
-	
-	var _Player = __webpack_require__(219);
-	
-	var _Player2 = _interopRequireDefault(_Player);
-	
-	var _VisualCanvas = __webpack_require__(220);
-	
-	var _VisualCanvas2 = _interopRequireDefault(_VisualCanvas);
+	var _main2 = _interopRequireDefault(_main);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(221);
+	__webpack_require__(216);
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
@@ -86,9 +78,7 @@
 	  _react2.default.createElement(
 	    'div',
 	    { className: 'main' },
-	    _react2.default.createElement(_TrackList2.default, null),
-	    _react2.default.createElement(_Player2.default, null),
-	    _react2.default.createElement(_VisualCanvas2.default, null)
+	    _react2.default.createElement(_main2.default, null)
 	  )
 	), document.getElementById('app'));
 	
@@ -24193,19 +24183,25 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _dec, _class;
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Track = __webpack_require__(216);
-	
-	var _Track2 = _interopRequireDefault(_Track);
-	
 	var _reactRedux = __webpack_require__(172);
 	
-	var _actions = __webpack_require__(217);
+	var _actions = __webpack_require__(219);
+	
+	var _TrackList = __webpack_require__(220);
+	
+	var _TrackList2 = _interopRequireDefault(_TrackList);
+	
+	var _Player = __webpack_require__(222);
+	
+	var _Player2 = _interopRequireDefault(_Player);
+	
+	var _VisualCanvas = __webpack_require__(223);
+	
+	var _VisualCanvas2 = _interopRequireDefault(_VisualCanvas);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -24215,88 +24211,45 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var TrackList = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    tracks: store.data,
-	    audioNode: store.contexts
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(TrackList, _Component);
+	var Main = function (_Component) {
+	  _inherits(Main, _Component);
 	
-	  function TrackList(props) {
-	    _classCallCheck(this, TrackList);
+	  function Main(props) {
+	    _classCallCheck(this, Main);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TrackList).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Main).call(this, props));
 	
 	    _this.state = { activeItem: 0 };
 	    return _this;
 	  }
 	
-	  _createClass(TrackList, [{
+	  _createClass(Main, [{
 	    key: 'onItemActive',
 	    value: function onItemActive(index) {
 	      this.setState({ activeItem: index });
 	    }
 	  }, {
-	    key: 'fetchData',
-	    value: function fetchData() {
-	      (0, _actions.fetchData)();
-	    }
-	
-	    // componentDidMount () {
-	    //   this.fetchData()
-	    // }
-	
-	    // componentDidUpdate () {
-	    //   let trackId = 0;
-	    //   let audioNode = this.props.audioNode[trackId];
-	    //
-	    //   selectTrack(trackId);
-	    //
-	    //   audioNode.src.connect(audioNode.context.destination);
-	    //
-	    //   let analyser = audioNode.context.createAnalyser();
-	    //   audioNode.src.connect(analyser);
-	    // }
-	
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
 	
-	      var data = this.props.tracks;
 	      var self = this;
 	
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'list-wrap' },
-	        _react2.default.createElement(
-	          'ul',
-	          { className: 'playlist' },
-	          data.map(function (item, index) {
-	            return _react2.default.createElement(_Track2.default, { key: index, trackId: index, data: item, onItemActive: self.onItemActive.bind(self), active: index === self.state.activeItem });
-	          })
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'wn-widgetlist__actions' },
-	          _react2.default.createElement(
-	            'button',
-	            { className: 'btn-secondary', onClick: function onClick() {
-	                return _this2.fetchData();
-	              } },
-	            'Get Playlist'
-	          )
-	        )
+	        null,
+	        _react2.default.createElement(_TrackList2.default, { onItemActive: self.onItemActive.bind(self), activeItem: this.state.activeItem }),
+	        _react2.default.createElement(_Player2.default, null),
+	        _react2.default.createElement(_VisualCanvas2.default, null)
 	      );
 	    }
 	  }]);
 	
-	  return TrackList;
-	}(_react.Component)) || _class);
-	exports.default = TrackList;
+	  return Main;
+	}(_react.Component);
 	
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TrackList.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+	exports.default = Main;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "main.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 216 */
@@ -24306,402 +24259,13 @@
 	
 	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(172);
-	
-	var _actions = __webpack_require__(217);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// import visualize from '../logic/visualize.js';
-	
-	var Track = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    audioNode: store.contexts
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(Track, _Component);
-	
-	  function Track(props) {
-	    _classCallCheck(this, Track);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Track).call(this, props));
-	  }
-	
-	  _createClass(Track, [{
-	    key: 'select',
-	    value: function select() {
-	      var trackId = this.props.trackId;
-	
-	      var audioNode = this.props.audioNode[trackId];
-	
-	      (0, _actions.setCurrTrack)(trackId);
-	
-	      audioNode.src.connect(audioNode.context.destination);
-	
-	      var analyser = audioNode.context.createAnalyser();
-	      audioNode.src.connect(analyser);
-	
-	      this.props.onItemActive(this.props.trackId);
-	      // visualize();
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var trackId = this.props.trackId;
-	
-	
-	      var audioItem = document.getElementById('track-' + trackId);
-	      var audioContext = new AudioContext();
-	      var audioSrc = audioContext.createMediaElementSource(audioItem);
-	
-	      var audioNode = {
-	        context: audioContext,
-	        src: audioSrc,
-	        item: audioItem
-	      };
-	
-	      (0, _actions.createAudioContexts)(audioNode);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var name = this.props.data.name;
-	
-	
-	      return _react2.default.createElement(
-	        'li',
-	        { className: this.props.active ? 'is--active' : '', onClick: this.select.bind(this) },
-	        name,
-	        _react2.default.createElement(
-	          'audio',
-	          { id: 'track-' + this.props.trackId, controls: true },
-	          _react2.default.createElement('source', { type: 'audio/mpeg', src: 'assets/add/audio/' + name })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Track;
-	}(_react.Component)) || _class);
-	exports.default = Track;
-	
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Track.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 217 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-	
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.fetchData = fetchData;
-	exports.createAudioContexts = createAudioContexts;
-	exports.selectTrack = selectTrack;
-	exports.skip = skip;
-	exports.prev = prev;
-	exports.setCurrTrack = setCurrTrack;
-	
-	var _store = __webpack_require__(194);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	var _axios = __webpack_require__(198);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function fetchData() {
-	  return _store2.default.dispatch({ type: 'RECIVE_DATA', data: files });
-	};
-	
-	function createAudioContexts(data) {
-	  return _store2.default.dispatch({ type: 'CREATE_AUDIOCONTEXTS', audioNode: {
-	      context: data.context,
-	      src: data.src,
-	      item: data.item
-	    } });
-	};
-	
-	function selectTrack(trackId) {
-	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
-	};
-	
-	function skip(trackId) {
-	  return _store2.default.dispatch({ type: 'INC_TRACK', id: trackId + 1 });
-	};
-	
-	function prev(trackId) {
-	  return _store2.default.dispatch({ type: 'DEC_TRACK', id: trackId - 1 });
-	};
-	
-	function setCurrTrack(trackId) {
-	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
-	};
-	
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "actions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 218 */,
-/* 219 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-	
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(172);
-	
-	var _actions = __webpack_require__(217);
-	
-	var _store = __webpack_require__(194);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Player = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    track: store.trackId,
-	    audioNode: store.contexts
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(Player, _Component);
-	
-	  function Player() {
-	    _classCallCheck(this, Player);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Player).apply(this, arguments));
-	  }
-	
-	  _createClass(Player, [{
-	    key: 'play',
-	
-	
-	    //playes selected audio node
-	    value: function play() {
-	      console.log('play', this.props.track);
-	
-	      var id = this.props.track;
-	
-	      this.props.audioNode[id].item.play();
-	    }
-	
-	    //pauses selected audio node
-	
-	  }, {
-	    key: 'pause',
-	    value: function pause() {
-	      var id = this.props.track;
-	
-	      this.props.audioNode[id].item.pause();
-	    }
-	
-	    //skips to next audio node
-	
-	  }, {
-	    key: 'skipNext',
-	    value: function skipNext() {
-	      var id = this.props.track;
-	      var nodes = this.props.audioNode;
-	
-	      if (id + 1 <= nodes.length - 1) {
-	
-	        nodes[id].item.pause();
-	
-	        id = id + 1;
-	        (0, _actions.setCurrTrack)(id);
-	
-	        nodes[id].src.connect(nodes[id].context.destination);
-	        var analyser = nodes[id].context.createAnalyser();
-	        nodes[id].src.connect(analyser);
-	
-	        nodes[id].item.play();
-	      }
-	    }
-	
-	    //skips to previous audio node
-	
-	  }, {
-	    key: 'skipPrev',
-	    value: function skipPrev() {
-	      var id = this.props.track;
-	      var nodes = this.props.audioNode;
-	
-	      if (id + 1 <= nodes.length && id - 1 >= 0) {
-	        nodes[id].item.pause();
-	
-	        id = id - 1;
-	        (0, _actions.setCurrTrack)(id);
-	
-	        nodes[id].src.connect(nodes[id].context.destination);
-	        var analyser = nodes[id].context.createAnalyser();
-	        nodes[id].src.connect(analyser);
-	
-	        nodes[id].item.play();
-	      }
-	    }
-	
-	    //changes audio volume
-	
-	  }, {
-	    key: 'range',
-	    value: function range(event) {
-	      var id = this.props.track;
-	
-	      this.props.audioNode[id].item.volume = event.target.value / 100;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var trackId = this.props.track.trackId;
-	
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'player' },
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'controls' },
-	          _react2.default.createElement('input', { className: 'volume', type: 'range', onChange: this.range.bind(this) }),
-	          _react2.default.createElement('button', { className: 'btn play', 'data-icon': '>', onClick: this.play.bind(this) }),
-	          _react2.default.createElement('button', { className: 'btn stop', 'data-icon': '||', onClick: this.pause.bind(this) }),
-	          _react2.default.createElement('button', { className: 'btn skip', 'data-icon': '|>', onClick: this.skipNext.bind(this) }),
-	          _react2.default.createElement('button', { className: 'btn skip-back', 'data-icon': '<|', onClick: this.skipPrev.bind(this) })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return Player;
-	}(_react.Component)) || _class);
-	exports.default = Player;
-	
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Player.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 220 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-	
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _dec, _class;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(172);
-	
-	var _store = __webpack_require__(194);
-	
-	var _store2 = _interopRequireDefault(_store);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var VisualCanvas = (_dec = (0, _reactRedux.connect)(function (store) {
-	  return {
-	    track: store.trackId
-	  };
-	}), _dec(_class = function (_Component) {
-	  _inherits(VisualCanvas, _Component);
-	
-	  function VisualCanvas() {
-	    _classCallCheck(this, VisualCanvas);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VisualCanvas).apply(this, arguments));
-	  }
-	
-	  _createClass(VisualCanvas, [{
-	    key: 'render',
-	    value: function render() {
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('canvas', { id: 'canvas-wave-' + this.props.track })
-	      );
-	    }
-	  }]);
-	
-	  return VisualCanvas;
-	}(_react.Component)) || _class);
-	exports.default = VisualCanvas;
-	
-	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "VisualCanvas.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
-
-/***/ },
-/* 221 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
-	
-	'use strict';
-	
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(222);
+	var content = __webpack_require__(217);
 	if (typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(223)(content, {});
+	var update = __webpack_require__(218)(content, {});
 	if (content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if (false) {
@@ -24722,13 +24286,13 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "styles.scss" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 222 */
+/* 217 */
 /***/ function(module, exports) {
 
 	module.exports = "@charset \"UTF-8\";\n/*!-----------------------------------------------------------------------------\n   Master Stylesheet.\n\n   Project:       Web Boilerplate\n   Version:       1.1.3\n   Contributors:  Sebastian Prein <hi@sebastianprein.com>\n   URL:           http://my-web-app.io\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   The meta folder holds files which only have functions, mixins, variables and\n   other definitions which do NOT compile to CSS.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Define your global functions in here!\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Breakpoint and media query related functions.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Define your global mixins in here!\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Define your color palette over here.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Color associations.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Resolution relative settings. Excerpt from Google web fundamentals:\n\n   - Create breakpoints based on content, never on specific devices, products,\n     or brands.\n   - Design for the smallest mobile device first, then progressively enhance\n     the experience as more screen real estate becomes available.\n   - Keep lines of text to a maximum of around 70 or 80 characters.\n\n   https://goo.gl/EDZOAH\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Global grid.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Z-index listing.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Typography.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Define your global selectors in here!\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   All styles from third party applications, frameworks and libraries.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   All styles which are used throughout the whole website get in here.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Global debugging styles.\n   -------------------------------------------------------------------------- */\n.debug::before {\n  background: #fafaaa;\n  color: #000000;\n  content: \"\";\n  left: 0;\n  padding: 0.5rem 0.75rem;\n  position: fixed;\n  top: 0;\n  z-index: 500; }\n  @media (max-width: 39.9375rem) {\n    .debug::before {\n      content: \"small (≤ 40rem)\"; } }\n  @media (min-width: 40rem) and (max-width: 59.9375rem) {\n    .debug::before {\n      content: \"medium (> 40rem and ≤ 60rem)\"; } }\n  @media (min-width: 60rem) and (max-width: 79.9375rem) {\n    .debug::before {\n      content: \"large (> 60rem and ≤ 80rem)\"; } }\n  @media (min-width: 80rem) and (max-width: 119.9375rem) {\n    .debug::before {\n      content: \"exra large (> 80rem and ≤ 120rem)\"; } }\n  @media (min-width: 120rem) {\n    .debug::before {\n      content: \"above extra large (> 120rem)\"; } }\n\n/* -----------------------------------------------------------------------------\n   Generic styles.\n   -------------------------------------------------------------------------- */\n:root {\n  box-sizing: border-box; }\n\n/* -----------------------------------------------------------------------------\n   Global application grid.\n   -------------------------------------------------------------------------- */\n@media (max-width: 39.9375rem) {\n  .hidden-sm {\n    display: none; } }\n\n@media (min-width: 40rem) and (max-width: 59.9375rem) {\n  .hidden-md {\n    display: none; } }\n\n@media (min-width: 60rem) and (max-width: 79.9375rem) {\n  .hidden-lg {\n    display: none; } }\n\n@media (min-width: 80rem) and (max-width: 119.9375rem) {\n  .hidden-xlg {\n    display: none; } }\n\n@media (min-width: 120rem) {\n  .hidden-xxlg {\n    display: none; } }\n\n/* -----------------------------------------------------------------------------\n   Common font weights.\n   http://www.w3.org/TR/css3-fonts/#font-weight-prop\n\n   100 - Thin\n   200 - Extra Light (Ultra Light)\n   300 - Light\n   400 - Normal\n   500 - Medium\n   600 - Semi Bold (Demi Bold)\n   700 - Bold\n   800 - Extra Bold (Ultra Bold)\n   900 - Black (Heavy)\n   -------------------------------------------------------------------------- */\n:root {\n  color: #000000;\n  font-family: impact;\n  font-size: 16px;\n  line-height: 1.4;\n  text-rendering: optimizeLegibility; }\n\nh1, .h1,\nh2, .h2,\nh3, .h3,\nh4, .h4,\nh5, .h5,\nh6, .h6 {\n  color: #3c3c3b;\n  font-family: Georgia, Times, Times New Roman, serif;\n  margin-top: 0; }\n\nh1, .h1 {\n  font-size: 1.25rem;\n  margin-bottom: 1.25rem; }\n\nh2, .h2 {\n  font-size: 1.125rem;\n  margin-bottom: 1.125rem; }\n\nh3, .h3 {\n  font-size: 1.0625rem;\n  margin-bottom: 1.0625rem; }\n\n/* -----------------------------------------------------------------------------\n   Print styles.\n   Inlined to avoid the additional HTTP request:\n   http://www.phpied.com/delay-loading-your-print-css/\n   -------------------------------------------------------------------------- */\n@media print {\n  *,\n  *::before,\n  *::after,\n  *::first-letter,\n  *::first-line {\n    background: transparent !important;\n    color: #000 !important;\n    /* Black prints faster:\n                                   http://www.sanbeiji.com/archives/953 */\n    box-shadow: none !important;\n    text-shadow: none !important; }\n  a,\n  a:visited {\n    text-decoration: underline; }\n  a[href]::after {\n    content: \" (\" attr(href) \")\"; }\n  abbr[title]::after {\n    content: \" (\" attr(title) \")\"; }\n  /*\n     * Don't show links that are fragment identifiers,\n     * or use the `javascript:` pseudo protocol\n     */\n  a[href^=\"#\"]::after,\n  a[href^=\"javascript:\"]::after {\n    content: \"\"; }\n  pre,\n  blockquote {\n    border: 1px solid #999;\n    page-break-inside: avoid; }\n  /*\n     * Printing Tables:\n     * http://css-discuss.incutio.com/wiki/Printing_Tables\n     */\n  thead {\n    display: table-header-group; }\n  tr,\n  img {\n    page-break-inside: avoid; }\n  img {\n    max-width: 100% !important; }\n  p,\n  h2,\n  h3 {\n    orphans: 3;\n    widows: 3; }\n  h2,\n  h3 {\n    page-break-after: avoid; } }\n\n/* -----------------------------------------------------------------------------\n   Components are parts which are used among several views. For example those\n   could be buttons, banners, lists, dialogs and so on.\n   -------------------------------------------------------------------------- */\n/* -----------------------------------------------------------------------------\n   Global buttons.\n   -------------------------------------------------------------------------- */\n.btn {\n  color: rgba(3, 169, 244, 0.9);\n  background-color: #fff;\n  transform: translate3d(0, 0, 0) skew(-5deg) rotate(-5deg);\n  text-decoration: none;\n  padding: 25px 30px;\n  text-transform: uppercase;\n  border: 1px solid rgba(3, 169, 244, 0.9);\n  transition: all .2s ease-in-out;\n  position: relative;\n  outline: 0; }\n  .btn:before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border: 1px solid rgba(3, 169, 244, 0.9);\n    transform: translateY(7px) translateX(-7px);\n    transition: all .2s ease-in-out; }\n  .btn:after {\n    content: attr(data-icon);\n    position: absolute;\n    top: 60%;\n    left: 40%;\n    transform: translate(-50%, -50%);\n    font-size: 16px; }\n  .btn:hover {\n    border: 1px solid #03a9f4; }\n    .btn:hover:before {\n      border: 1px solid #03a9f4;\n      background-color: rgba(3, 169, 244, 0.5); }\n    .btn:hover:after {\n      color: #fff; }\n\n.btn-secondary {\n  color: #1BB1F5;\n  background-color: #FFEB3B;\n  border: 0;\n  padding: 8px;\n  font-family: 'impact';\n  letter-spacing: 1.1px;\n  text-transform: uppercase;\n  cursor: pointer;\n  box-shadow: 0;\n  transition: box-shadow .2s ease-in-out;\n  outline: 0; }\n  .btn-secondary:hover {\n    box-shadow: 0px 0px 5px #FFEB3B; }\n\n.player {\n  z-index: 100;\n  height: 100px;\n  width: 350px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  text-align: center; }\n\n.controls {\n  display: flex;\n  justify-content: center;\n  flex-wrap: wrap; }\n  .controls > * {\n    margin-left: 20px;\n    cursor: pointer; }\n    .controls > *:first-child, .controls > *:nth-child(2) {\n      margin-left: 0; }\n\n.volume {\n  width: 100%;\n  margin-bottom: 30px;\n  height: 20px; }\n\ninput[type=range] {\n  -webkit-appearance: none;\n  /* Hides the slider so that custom slider can be made */\n  width: 100%;\n  /* Specific width is required for Firefox. */ }\n\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none; }\n\ninput[type=range]:focus {\n  outline: none;\n  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */ }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  cursor: pointer;\n  background: transparent;\n  /* Hides the slider so custom styles can be added */\n  border-color: transparent;\n  color: transparent; }\n\ninput[type=range]::-webkit-slider-runnable-track {\n  width: 100%;\n  height: 1px;\n  cursor: pointer;\n  background: #1CB1F5; }\n\ninput[type=range]:focus::-webkit-slider-runnable-track {\n  background: #367ebd; }\n\ninput[type=range]::-moz-range-track {\n  width: 100%;\n  height: 1px;\n  cursor: pointer;\n  background: #1CB1F5; }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  height: 8.4px;\n  cursor: pointer;\n  background: transparent;\n  border-color: transparent;\n  border-width: 16px 0;\n  color: transparent; }\n\ninput[type=range]::-ms-fill-lower {\n  background: #2a6495;\n  border: 0.2px solid #010101;\n  border-radius: 2.6px;\n  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; }\n\ninput[type=range]:focus::-ms-fill-lower {\n  background: #3071a9; }\n\ninput[type=range]::-ms-fill-upper {\n  background: #3071a9;\n  border: 0.2px solid #010101;\n  border-radius: 2.6px;\n  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; }\n\ninput[type=range]:focus::-ms-fill-upper {\n  background: #367ebd; }\n\n/* Special styling for WebKit/Blink */\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  border: 1px solid #03a9f4;\n  height: 20px;\n  width: 20px;\n  border-radius: 50%;\n  background: transparent;\n  cursor: pointer;\n  position: relative;\n  top: -9px; }\n\n/* All the same stuff for Firefox */\ninput[type=range]::-moz-range-thumb {\n  border: 1px solid #03a9f4;\n  height: 20px;\n  width: 20px;\n  border-radius: 50%;\n  background: transparent;\n  cursor: pointer;\n  position: relative;\n  top: -9px; }\n\n/* All the same stuff for IE */\ninput[type=range]::-ms-thumb {\n  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;\n  border: 1px solid #000000;\n  height: 36px;\n  width: 16px;\n  border-radius: 3px;\n  background: #ffffff;\n  cursor: pointer; }\n\n.list-wrap {\n  margin-bottom: 30px;\n  background-color: rgba(3, 169, 244, 0.9);\n  transform: translate3d(0, 0, 0) rotate(-3deg) skew(-3deg);\n  padding: 40px;\n  width: 350px; }\n\n.playlist {\n  list-style: none;\n  margin: 0 0 23px 0;\n  padding: 0;\n  color: #fff; }\n  .playlist audio {\n    display: none; }\n  .playlist li {\n    text-transform: lowercase;\n    font-size: 20px;\n    cursor: pointer; }\n    .playlist li.is--active {\n      color: #FFEB3B; }\n\n/* -----------------------------------------------------------------------------\n   Sections are bigger parts of a specific view which mostly have a semantic\n   meaning as well. A section for example can be a simple container for a list\n   of components and this accumulation can be a specific type of content on the\n   other hand.\n   -------------------------------------------------------------------------- */\n.intro {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  opacity: 0;\n  transition: opacity .5s ease-in-out; }\n  .intro.active {\n    opacity: 1; }\n\n.band {\n  position: absolute;\n  top: 40vh;\n  transform: translateY(-50%);\n  width: 100%;\n  transition: top 1s ease-in-out; }\n  .band.active {\n    top: 10vh;\n    transition: top 1s 4s ease-in-out; }\n  .band video {\n    position: absolute;\n    left: 0;\n    top: 50%;\n    bottom: 0;\n    width: 100%;\n    transform: translateY(-50%); }\n  .band .video_container {\n    position: relative;\n    width: 100%;\n    padding-top: 30%;\n    transform: scale(1);\n    transition: all 1s ease-in-out; }\n    .band .video_container.active {\n      transform: scale(0.5);\n      transition: all 1s 4s ease-in-out; }\n      .band .video_container.active .text--transparent {\n        fill: rgba(3, 169, 244, 0.9); }\n      .band .video_container.active .video-fill {\n        opacity: 0;\n        visibility: hidden; }\n      .band .video_container.active #svg2 rect {\n        fill: transparent; }\n  .band .video-fill {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    margin: auto;\n    overflow: hidden;\n    transition: all 1s 3s ease-in-out; }\n  .band #svg1 {\n    overflow: hidden;\n    width: 0;\n    height: 0; }\n  .band #svg2 {\n    position: absolute;\n    width: 100%;\n    height: 100%;\n    top: 0;\n    overflow: hidden; }\n  .band mask > rect {\n    fill: white; }\n  .band #svg2 rect {\n    fill: rgba(0, 0, 0, 0.8);\n    transition: all 1s 3s ease-in-out; }\n  .band .text--transparent {\n    fill: transparent;\n    transition: all 3s ease-in-out; }\n\n.btn_start {\n  position: absolute;\n  color: #000;\n  z-index: 100;\n  bottom: 10%;\n  left: 50%;\n  transform: translate3d(-50%, -50%, 0) skew(-5deg) rotate(-5deg);\n  text-decoration: none;\n  padding: 15px 50px;\n  text-transform: uppercase;\n  border: 2px solid #000;\n  background-color: transparent;\n  transition: all .5s ease-in-out; }\n  .btn_start:before {\n    content: '';\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    border: 2px solid black;\n    transform: translateY(-7px) translateX(7px);\n    transition: all .5s ease-in-out; }\n  .btn_start:hover {\n    color: #fff;\n    border: 2px solid black;\n    background-color: black; }\n    .btn_start:hover:before {\n      border: 2px solid #fff; }\n\n.main {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  transition: all 1s ease-in;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-flow: column;\n  overflow: hidden; }\n  .main.active {\n    opacity: 1;\n    visibility: visible;\n    transition: all 1s 5s ease-in; }\n  .main canvas {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    z-index: -1;\n    height: 100vh;\n    width: 100vw; }\n"
 
 /***/ },
-/* 223 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -24978,6 +24542,489 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 219 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.fetchData = fetchData;
+	exports.createAudioContexts = createAudioContexts;
+	exports.selectTrack = selectTrack;
+	exports.skip = skip;
+	exports.prev = prev;
+	exports.setCurrTrack = setCurrTrack;
+	
+	var _store = __webpack_require__(194);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	var _axios = __webpack_require__(198);
+	
+	var _axios2 = _interopRequireDefault(_axios);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function fetchData() {
+	  return _store2.default.dispatch({ type: 'RECIVE_DATA', data: files });
+	};
+	
+	function createAudioContexts(data) {
+	  return _store2.default.dispatch({ type: 'CREATE_AUDIOCONTEXTS', audioNode: {
+	      context: data.context,
+	      src: data.src,
+	      item: data.item
+	    } });
+	};
+	
+	function selectTrack(trackId) {
+	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
+	};
+	
+	function skip(trackId) {
+	  return _store2.default.dispatch({ type: 'INC_TRACK', id: trackId + 1 });
+	};
+	
+	function prev(trackId) {
+	  return _store2.default.dispatch({ type: 'DEC_TRACK', id: trackId - 1 });
+	};
+	
+	function setCurrTrack(trackId) {
+	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
+	};
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "actions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 220 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Track = __webpack_require__(221);
+	
+	var _Track2 = _interopRequireDefault(_Track);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	var _actions = __webpack_require__(219);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var TrackList = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    tracks: store.data,
+	    audioNode: store.contexts
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(TrackList, _Component);
+	
+	  function TrackList() {
+	    _classCallCheck(this, TrackList);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TrackList).apply(this, arguments));
+	  }
+	
+	  _createClass(TrackList, [{
+	    key: 'fetchData',
+	    value: function fetchData() {
+	      (0, _actions.fetchData)();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+	
+	      var data = this.props.tracks;
+	      var self = this;
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'list-wrap' },
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'playlist' },
+	          data.map(function (item, index) {
+	            return _react2.default.createElement(_Track2.default, { key: index, trackId: index, data: item, onItemActive: self.props.onItemActive.bind(self), active: index === self.props.activeItem });
+	          })
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'wn-widgetlist__actions' },
+	          _react2.default.createElement(
+	            'button',
+	            { className: 'btn-secondary', onClick: function onClick() {
+	                return _this2.fetchData();
+	              } },
+	            'Get Playlist'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return TrackList;
+	}(_react.Component)) || _class);
+	exports.default = TrackList;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "TrackList.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 221 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	var _actions = __webpack_require__(219);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	// import visualize from '../logic/visualize.js';
+	
+	var Track = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    audioNode: store.contexts
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(Track, _Component);
+	
+	  function Track(props) {
+	    _classCallCheck(this, Track);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Track).call(this, props));
+	  }
+	
+	  _createClass(Track, [{
+	    key: 'select',
+	    value: function select() {
+	      var trackId = this.props.trackId;
+	
+	      var audioNode = this.props.audioNode[trackId];
+	
+	      (0, _actions.setCurrTrack)(trackId);
+	
+	      audioNode.src.connect(audioNode.context.destination);
+	
+	      var analyser = audioNode.context.createAnalyser();
+	      audioNode.src.connect(analyser);
+	
+	      this.props.onItemActive(this.props.trackId);
+	      // visualize();
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var trackId = this.props.trackId;
+	
+	
+	      var audioItem = document.getElementById('track-' + trackId);
+	      var audioContext = new AudioContext();
+	      var audioSrc = audioContext.createMediaElementSource(audioItem);
+	
+	      var audioNode = {
+	        context: audioContext,
+	        src: audioSrc,
+	        item: audioItem
+	      };
+	
+	      (0, _actions.createAudioContexts)(audioNode);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var name = this.props.data.name;
+	
+	
+	      return _react2.default.createElement(
+	        'li',
+	        { className: this.props.active ? 'is--active' : '', onClick: this.select.bind(this) },
+	        name,
+	        _react2.default.createElement(
+	          'audio',
+	          { id: 'track-' + this.props.trackId, controls: true },
+	          _react2.default.createElement('source', { type: 'audio/mpeg', src: 'assets/add/audio/' + name })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Track;
+	}(_react.Component)) || _class);
+	exports.default = Track;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Track.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 222 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	var _actions = __webpack_require__(219);
+	
+	var _store = __webpack_require__(194);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    track: store.trackId,
+	    audioNode: store.contexts
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(Player, _Component);
+	
+	  function Player() {
+	    _classCallCheck(this, Player);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Player).apply(this, arguments));
+	  }
+	
+	  _createClass(Player, [{
+	    key: 'play',
+	
+	
+	    //playes selected audio node
+	    value: function play() {
+	      console.log('play', this.props.track);
+	
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.play();
+	    }
+	
+	    //pauses selected audio node
+	
+	  }, {
+	    key: 'pause',
+	    value: function pause() {
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.pause();
+	    }
+	
+	    //skips to next audio node
+	
+	  }, {
+	    key: 'skipNext',
+	    value: function skipNext() {
+	      var id = this.props.track;
+	      var nodes = this.props.audioNode;
+	
+	      if (id + 1 <= nodes.length - 1) {
+	
+	        nodes[id].item.pause();
+	
+	        id = id + 1;
+	        (0, _actions.setCurrTrack)(id);
+	
+	        nodes[id].src.connect(nodes[id].context.destination);
+	        var analyser = nodes[id].context.createAnalyser();
+	        nodes[id].src.connect(analyser);
+	
+	        nodes[id].item.play();
+	      }
+	    }
+	
+	    //skips to previous audio node
+	
+	  }, {
+	    key: 'skipPrev',
+	    value: function skipPrev() {
+	      var id = this.props.track;
+	      var nodes = this.props.audioNode;
+	
+	      if (id + 1 <= nodes.length && id - 1 >= 0) {
+	        nodes[id].item.pause();
+	
+	        id = id - 1;
+	        (0, _actions.setCurrTrack)(id);
+	
+	        nodes[id].src.connect(nodes[id].context.destination);
+	        var analyser = nodes[id].context.createAnalyser();
+	        nodes[id].src.connect(analyser);
+	
+	        nodes[id].item.play();
+	      }
+	    }
+	
+	    //changes audio volume
+	
+	  }, {
+	    key: 'range',
+	    value: function range(event) {
+	      var id = this.props.track;
+	
+	      this.props.audioNode[id].item.volume = event.target.value / 100;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var trackId = this.props.track.trackId;
+	
+	
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'player' },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'controls' },
+	          _react2.default.createElement('input', { className: 'volume', type: 'range', onChange: this.range.bind(this) }),
+	          _react2.default.createElement('button', { className: 'btn play', 'data-icon': '>', onClick: this.play.bind(this) }),
+	          _react2.default.createElement('button', { className: 'btn stop', 'data-icon': '||', onClick: this.pause.bind(this) }),
+	          _react2.default.createElement('button', { className: 'btn skip', 'data-icon': '|>', onClick: this.skipNext.bind(this) }),
+	          _react2.default.createElement('button', { className: 'btn skip-back', 'data-icon': '<|', onClick: this.skipPrev.bind(this) })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Player;
+	}(_react.Component)) || _class);
+	exports.default = Player;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Player.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 223 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-api/modules/index.js"), RootInstanceProvider = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _dec, _class;
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(172);
+	
+	var _store = __webpack_require__(194);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var VisualCanvas = (_dec = (0, _reactRedux.connect)(function (store) {
+	  return {
+	    track: store.trackId
+	  };
+	}), _dec(_class = function (_Component) {
+	  _inherits(VisualCanvas, _Component);
+	
+	  function VisualCanvas() {
+	    _classCallCheck(this, VisualCanvas);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VisualCanvas).apply(this, arguments));
+	  }
+	
+	  _createClass(VisualCanvas, [{
+	    key: 'render',
+	    value: function render() {
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('canvas', { id: 'canvas-wave-' + this.props.track })
+	      );
+	    }
+	  }]);
+	
+	  return VisualCanvas;
+	}(_react.Component)) || _class);
+	exports.default = VisualCanvas;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("/home/tim/proj/gau2/wandering-theme/node_modules/react-hot-loader/makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "VisualCanvas.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ }
 /******/ ]);
