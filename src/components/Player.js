@@ -85,7 +85,7 @@ export default class Player extends Component {
     return (
       <div className='player'>
         <div className="controls">
-          <input className="volume" type="range" onChange={this.range.bind(this)}></input>
+          <input className="volume" id="progress-bar" type="range" defaultValue="0"></input>
           <button className="btn play" data-icon=">" onClick={this.play.bind(this)}></button>
           <button className="btn stop" data-icon="||" onClick={this.pause.bind(this)}></button>
           <button className="btn skip" data-icon="|>" onClick={this.skipNext.bind(this)}></button>

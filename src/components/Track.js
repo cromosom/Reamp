@@ -5,7 +5,7 @@ import { setCurrTrack, createAudioContexts } from '../actions/actions.js';
 @connect((store) => {
   return {
     audioNode: store.contexts,
-    currTrakckId : store.trackId
+    currTrack : store.trackId
   }
 })
 
@@ -18,7 +18,7 @@ export default class Track extends Component {
   select() {
 
     //pause curr track
-    let audioNode = this.props.audioNode[this.props.currTrakckId];
+    let audioNode = this.props.audioNode[this.props.currTrack];
     audioNode.item.pause();
 
     //set selected track
@@ -50,6 +50,16 @@ export default class Track extends Component {
     }
 
     createAudioContexts(audioNode);
+
+    //sets the track progress
+    audioItem.addEventListener('timeupdate', () => {
+
+      let progressBar = document.getElementById('progress-bar');
+      let progress = audioItem.currentTime / audioItem.duration * 100;
+
+      progressBar.value = progress;
+
+    });
 
   }
 
