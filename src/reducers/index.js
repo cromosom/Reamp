@@ -1,19 +1,12 @@
 const initialState = {
-  fetching: false,
-  fetched: false,
   data: [],
-  error: null,
   contexts: [],
-  trackId: 0 
+  trackId: 0
 }
 
 export default (state=initialState, action) => {
   switch (action.type) {
 
-    case 'FETCH_DATA_ERROR' : {
-      return {...state, fetching: false, error: action.data}
-      break;
-    }
     case 'RECIVE_DATA' : {
       return {
         ...state,
@@ -39,10 +32,6 @@ export default (state=initialState, action) => {
         ...state,
         trackId: action.id
       }
-      break;
-    }
-    case 'INC_TRACK' : {
-      return {...state, trackId: action.id}
       break;
     }
   }

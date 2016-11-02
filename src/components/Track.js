@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setCurrTrack, createAudioContexts } from '../actions/actions.js';
+import { setCurrTrack, createAudioData } from '../actions/actions.js';
 
 @connect((store) => {
   return {
@@ -15,6 +15,7 @@ export default class Track extends Component {
     super(props);
   }
 
+  //selects clicked track
   select() {
 
     //pause curr track
@@ -25,13 +26,16 @@ export default class Track extends Component {
     const { trackId } = this.props;
     audioNode = this.props.audioNode[trackId]
 
+    //dispatch
     setCurrTrack(trackId);
 
+    //setup audio
     audioNode.src.connect(audioNode.context.destination);
 
     let analyser = audioNode.context.createAnalyser();
     audioNode.src.connect(analyser);
 
+    //set ui
     this.props.onItemActive(this.props.trackId);
   }
 
@@ -39,6 +43,7 @@ export default class Track extends Component {
 
     const { trackId } = this.props;
 
+    //creates audio contexts
     let audioItem = document.getElementById('track-' + trackId);
     let audioContext = new AudioContext();
     let audioSrc = audioContext.createMediaElementSource(audioItem);
@@ -49,7 +54,7 @@ export default class Track extends Component {
       item : audioItem
     }
 
-    createAudioContexts(audioNode);
+    createAudioData(audioNode);
 
     //sets the track progress
     audioItem.addEventListener('timeupdate', () => {

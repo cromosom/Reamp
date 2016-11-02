@@ -1,11 +1,12 @@
 import store from '../store.js';
-import axios from 'axios';
 
+//fetch playlist
 export function fetchData () {
   return store.dispatch({type: 'RECIVE_DATA', data: files});
 };
 
-export function createAudioContexts (data) {
+//creats object with audio data
+export function createAudioData (data) {
   return store.dispatch({type: 'CREATE_AUDIOCONTEXTS', audioNode: {
     context : data.context,
     src : data.src,
@@ -13,18 +14,7 @@ export function createAudioContexts (data) {
   }});
 };
 
-export function selectTrack (trackId) {
-  return store.dispatch({type: 'SET_TRACK', id : trackId});
-};
-
-export function skip (trackId) {
-  return store.dispatch({type: 'INC_TRACK', id: trackId+1});
-};
-
-export function prev (trackId) {
-  return store.dispatch({type: 'DEC_TRACK', id: trackId-1});
-};
-
+//sets curr track
 export function setCurrTrack (trackId) {
   return store.dispatch({type: 'SET_TRACK', id: trackId});
 };

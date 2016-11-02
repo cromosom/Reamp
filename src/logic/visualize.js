@@ -6,34 +6,26 @@
  * @param index of file
  */
 
-export default function (trackId, audioNodes, canvas) {
+export default function (trackId, audioNodes) {
 
     //setup frequency data
-    var analyser = audioNodes[trackId].context.createAnalyser();
+    let analyser = audioNodes[trackId].context.createAnalyser();
     audioNodes[trackId].src.connect(analyser);
 
     analyser.fftSize = 1024;
     analyser.smoothingTimeConstant = 1;
-    var biquadFilter = audioNodes[trackId].context.createBiquadFilter();
-    var gainNode = audioNodes[trackId].context.createGain();
+    let biquadFilter = audioNodes[trackId].context.createBiquadFilter();
+    let gainNode = audioNodes[trackId].context.createGain();
 
-    // analyser.connect(biquadFilter);
-    // biquadFilter.connect(gainNode);
-    // gainNode.connect(audioNodes[trackId].context.destination);
+    let bufferLength = analyser.frequencyBinCount;
+    let dataArray = new Uint8Array(bufferLength);
 
-    // biquadFilter.type = "lowpass";
-    // biquadFilter.frequency.value = 500;
-    // biquadFilter.gain.value = 25;
+    let canvasWrap = document.getElementById('canvas-wrap');
+    let canvas = document.createElement('canvas');
 
-    var bufferLength = analyser.frequencyBinCount;
-    var dataArray = new Uint8Array(bufferLength);
-
-    var canvasWrap = document.getElementById('canvas-wrap');
-    var canvas = document.createElement('canvas');
-
-    var height = canvas.height;
-    var width = canvas.width;
-    var context = canvas.getContext('2d');
+    let height = canvas.height;
+    let width = canvas.width;
+    let context = canvas.getContext('2d');
     canvas = context.canvas;
 
     const dpr = window.devicePixelRatio
@@ -66,13 +58,13 @@ export default function (trackId, audioNodes, canvas) {
         context.strokeStyle = 'rgba(200, 200, 200, 1)';
 
         context.beginPath();
-        var sliceWidth = width * 6.0 / bufferLength;
-        var x = 0;
+        let sliceWidth = width * 6.0 / bufferLength;
+        let x = 0;
 
-        for (var i = 0; i < bufferLength; i++) {
+        for (let i = 0; i < bufferLength; i++) {
 
-          var v = dataArray[i] / 150;
-          var y = v * height * 4;
+          let v = dataArray[i] / 150;
+          let y = v * height * 4;
 
           if(i === 0) {
             context.moveTo(x, y / 2);

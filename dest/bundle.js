@@ -23988,10 +23988,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var initialState = {
-	  fetching: false,
-	  fetched: false,
 	  data: [],
-	  error: null,
 	  contexts: [],
 	  trackId: 0
 	};
@@ -24002,11 +23999,6 @@
 	
 	  switch (action.type) {
 	
-	    case 'FETCH_DATA_ERROR':
-	      {
-	        return _extends({}, state, { fetching: false, error: action.data });
-	        break;
-	      }
 	    case 'RECIVE_DATA':
 	      {
 	        return _extends({}, state, {
@@ -24031,11 +24023,6 @@
 	        return _extends({}, state, {
 	          trackId: action.id
 	        });
-	        break;
-	      }
-	    case 'INC_TRACK':
-	      {
-	        return _extends({}, state, { trackId: action.id });
 	        break;
 	      }
 	  }
@@ -25234,6 +25221,9 @@
 	    return _this;
 	  }
 	
+	  //sets the the current track as active in ui
+	
+	
 	  _createClass(Main, [{
 	    key: 'onItemActive',
 	    value: function onItemActive(index) {
@@ -25274,27 +25264,22 @@
 	  value: true
 	});
 	exports.fetchData = fetchData;
-	exports.createAudioContexts = createAudioContexts;
-	exports.selectTrack = selectTrack;
-	exports.skip = skip;
-	exports.prev = prev;
+	exports.createAudioData = createAudioData;
 	exports.setCurrTrack = setCurrTrack;
 	
 	var _store = __webpack_require__(196);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _axios = __webpack_require__(205);
-	
-	var _axios2 = _interopRequireDefault(_axios);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//fetch playlist
 	function fetchData() {
 	  return _store2.default.dispatch({ type: 'RECIVE_DATA', data: files });
 	};
 	
-	function createAudioContexts(data) {
+	//creats object with audio data
+	function createAudioData(data) {
 	  return _store2.default.dispatch({ type: 'CREATE_AUDIOCONTEXTS', audioNode: {
 	      context: data.context,
 	      src: data.src,
@@ -25302,18 +25287,7 @@
 	    } });
 	};
 	
-	function selectTrack(trackId) {
-	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
-	};
-	
-	function skip(trackId) {
-	  return _store2.default.dispatch({ type: 'INC_TRACK', id: trackId + 1 });
-	};
-	
-	function prev(trackId) {
-	  return _store2.default.dispatch({ type: 'DEC_TRACK', id: trackId - 1 });
-	};
-	
+	//sets curr track
 	function setCurrTrack(trackId) {
 	  return _store2.default.dispatch({ type: 'SET_TRACK', id: trackId });
 	};
@@ -25373,6 +25347,9 @@
 	
 	  _createClass(TrackList, [{
 	    key: 'fetchData',
+	
+	
+	    //fetches playlist
 	    value: function fetchData() {
 	      (0, _actions.fetchData)();
 	    }
@@ -25462,6 +25439,9 @@
 	    return _possibleConstructorReturn(this, (Track.__proto__ || Object.getPrototypeOf(Track)).call(this, props));
 	  }
 	
+	  //selects clicked track
+	
+	
 	  _createClass(Track, [{
 	    key: 'select',
 	    value: function select() {
@@ -25475,13 +25455,16 @@
 	
 	      audioNode = this.props.audioNode[trackId];
 	
+	      //dispatch
 	      (0, _actions.setCurrTrack)(trackId);
 	
+	      //setup audio
 	      audioNode.src.connect(audioNode.context.destination);
 	
 	      var analyser = audioNode.context.createAnalyser();
 	      audioNode.src.connect(analyser);
 	
+	      //set ui
 	      this.props.onItemActive(this.props.trackId);
 	    }
 	  }, {
@@ -25489,6 +25472,7 @@
 	    value: function componentDidMount() {
 	      var trackId = this.props.trackId;
 	
+	      //creates audio contexts
 	
 	      var audioItem = document.getElementById('track-' + trackId);
 	      var audioContext = new AudioContext();
@@ -25500,7 +25484,7 @@
 	        item: audioItem
 	      };
 	
-	      (0, _actions.createAudioContexts)(audioNode);
+	      (0, _actions.createAudioData)(audioNode);
 	
 	      //sets the track progress
 	      audioItem.addEventListener('timeupdate', function () {
@@ -25708,7 +25692,7 @@
 	  value: true
 	});
 	
-	exports.default = function (trackId, audioNodes, canvas) {
+	exports.default = function (trackId, audioNodes) {
 	
 	  //setup frequency data
 	  var analyser = audioNodes[trackId].context.createAnalyser();
@@ -25718,14 +25702,6 @@
 	  analyser.smoothingTimeConstant = 1;
 	  var biquadFilter = audioNodes[trackId].context.createBiquadFilter();
 	  var gainNode = audioNodes[trackId].context.createGain();
-	
-	  // analyser.connect(biquadFilter);
-	  // biquadFilter.connect(gainNode);
-	  // gainNode.connect(audioNodes[trackId].context.destination);
-	
-	  // biquadFilter.type = "lowpass";
-	  // biquadFilter.frequency.value = 500;
-	  // biquadFilter.gain.value = 25;
 	
 	  var bufferLength = analyser.frequencyBinCount;
 	  var dataArray = new Uint8Array(bufferLength);

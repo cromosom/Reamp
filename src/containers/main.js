@@ -13,6 +13,7 @@ export default class Main extends Component {
     this.state = {activeItem : 0};
   }
 
+  //sets the the current track as active in ui
   onItemActive (index) {
     this.setState({activeItem: index});
   }

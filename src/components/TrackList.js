@@ -12,13 +12,14 @@ import { selectTrack, fetchData, createAudioContexts } from '../actions/actions.
 
 export default class TrackList extends Component {
 
+  //fetches playlist
   fetchData () {
     fetchData();
   }
 
   render () {
 
-    const data = this.props.tracks
+    const data = this.props.tracks;
     let self = this;
 
     return (

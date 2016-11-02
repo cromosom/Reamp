@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { setCurrTrack, skip, prev } from '../actions/actions.js';
+import { setCurrTrack } from '../actions/actions.js';
 import store from '../store.js';
 
 import visualize from '../logic/visualize.js';
