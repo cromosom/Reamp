@@ -1,4 +1,6 @@
-# React Theme for Max Gaudium
+# Reamp
+
+React audioplayer with some visualisation.
 
 ## Install
 `npm i`
